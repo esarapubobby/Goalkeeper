@@ -5,23 +5,23 @@ using TMPro;
 
 public class Scoring : MonoBehaviour
 {
-    private int Goals=0;
-    [SerializeField]private TextMeshProUGUI scoreText;  
-                
+  private int Goals = 0;
+  [SerializeField] private TextMeshProUGUI score;
 
-    private void Start()
+
+  private void Start()
+  {
+    score.text = "Goals: 0";
+  }
+
+
+  void OnTriggerEnter(Collider other)
+  {
+    if (other.gameObject.tag == "Goalline")
     {
-        scoreText.text = "Goals: 0"; 
+      Goals++;
+      score.text = "Goals: " + Goals;
     }
-
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag=="Goalline")
-        {
-            Goals++;
-            scoreText.text="Goals: "+Goals;
-        }
-    }
+  }
 
 }
