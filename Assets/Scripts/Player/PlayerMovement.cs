@@ -21,8 +21,9 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    
-    void Update()
+  void Update()
+  {
+    if (Input.GetKeyDown(KeyCode.LeftArrow))
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -38,9 +39,24 @@ public class PlayerMovement : MonoBehaviour
         targetX = (currentLane-(totalLanes/2))*laneDistance;
         
     }
-    void FixedUpdate()
+    else if (Input.GetKeyDown(KeyCode.RightArrow))
     {
-        Vector3 targetPosition=new Vector3(targetX,Rb.position.y,Rb.position.z);
-        Rb.MovePosition(Vector3.MoveTowards(Rb.position,targetPosition,speed*Time.fixedDeltaTime));
+      currentLane++;
     }
+    currentLane = Mathf.Clamp(currentLane, 0, totalLanes - 1);
+    targetX = (currentLane - (totalLanes / 2)) * laneDistance;
+
+  }
+  void FixedUpdate()
+  {
+    Vector3 targetPosition = new Vector3(targetX, Rb.position.y, Rb.position.z);
+    Rb.MovePosition(Vector3.MoveTowards(Rb.position, targetPosition, speed * Time.fixedDeltaTime));
+  }
+  void OnCollisionEnter(Collision collision)
+  {
+    if (collision.gameObject.tag == "Ball")
+    {
+      uiManager.ScoreIncrease();
+    }
+  }
 }
