@@ -1,23 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
   [SerializeField] AudioSource audioSource;
-
+  public Toggle musicToggle;
+  public Slider volumeSlider;
   [SerializeField] GameObject musicPanel;
   [SerializeField] GameObject instructionsPanel;
+
+  void Start()
+  {
+    volumeSlider.value = 1;
+  }
+  void Update()
+  {
+
+    setVolume();
+
+    if (musicToggle.isOn)
+    {
+      audioSource.mute = false;
+    }
+    else
+    {
+      audioSource.mute = true;
+    }
+  }
 
   void OnEnable()
   {
     ShowAudio();
   }
 
-  public void setVolume(float value)
+  public void setVolume()
   {
-    Debug.Log("Volume changed to: " + value);
-    audioSource.volume = value;
+    float volumeValue = volumeSlider.value;
+    audioSource.volume = volumeValue;
   }
 
   public void ShowAudio()

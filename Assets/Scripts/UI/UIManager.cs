@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
     if (!SkipMenu)
     {
       MainMenuPannel.SetActive(true);
+      LivesPannel.SetActive(false);
       return;
     }
 
@@ -47,12 +48,14 @@ public class UIManager : MonoBehaviour
     if (SkipLevelPanel)
     {
       LevelsPannel.SetActive(false);
+      LivesPannel.SetActive(true);
       SkipLevelPanel = false;
       Time.timeScale = 1f;
     }
     else
     {
       LevelsPannel.SetActive(true);
+      LivesPannel.SetActive(false);
     }
   }
 
@@ -78,9 +81,21 @@ public class UIManager : MonoBehaviour
     else if (goals == 0)
     {
       Ball1.SetActive(false);
-      audiomanager.PlayGameOver();
-      GameOver();
+
+
+      StartCoroutine(HoldGame());
     }
+  }
+
+  private IEnumerator HoldGame()
+  {
+    ballController.enabled = false;
+    player.enabled = false;
+    yield return new WaitForSeconds(3);
+
+    audiomanager.PlayGameOver();
+    GameOver();
+
   }
 
   void GameOver()
@@ -119,6 +134,12 @@ public class UIManager : MonoBehaviour
   {
     SkipMenu = true;
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+  }
+
+  public void ShowMenu()
+  {
+    MainMenuPannel.SetActive(false);
+    LevelsPannel.SetActive(true);
   }
 
   public void QuitButton()
@@ -164,8 +185,9 @@ public class UIManager : MonoBehaviour
     points = 0;
     SkipMenu = true;
     SkipLevelPanel = true;
+
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    LivesPannel.SetActive(true);
+
   }
 
   IEnumerator ResumeCountdown()

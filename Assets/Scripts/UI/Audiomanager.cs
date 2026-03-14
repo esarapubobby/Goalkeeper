@@ -13,22 +13,48 @@ public class Audiomanager : MonoBehaviour
 
   public void PlayKick()
   {
-    audioSource.PlayOneShot(kickSound);
+    // audioSource.PlayOneShot(kickSound);
+    if (audioSource.isPlaying)
+    {
+      audioSource.Stop();
+    }
+    audioSource.clip = kickSound;
+    audioSource.Play();
   }
 
   public void PlaySave()
   {
-    if (saveSound == null) return;
-    audioSource.PlayOneShot(saveSound);
+    // audioSource.PlayOneShot(saveSound);
+
+    if (audioSource.isPlaying)
+    {
+      audioSource.Stop();
+    }
+    audioSource.clip = saveSound;
+    audioSource.Play();
   }
 
   public void PlayGoal()
   {
-    audioSource.PlayOneShot(goalSound);
+    // audioSource.PlayOneShot(goalSound);
+
+    if (audioSource.isPlaying)
+    {
+      audioSource.Stop();
+    }
+    audioSource.clip = goalSound;
+    audioSource.Play();
   }
 
   public void PlayGameOver()
   {
-    audioSource.PlayOneShot(gameOverSound);
+    // audioSource.PlayOneShot(gameOverSound);
+
+    if (audioSource.isPlaying)
+    {
+      audioSource.Stop();
+    }
+    audioSource.clip = gameOverSound;
+    audioSource.Play();
   }
 }
