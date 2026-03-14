@@ -5,13 +5,13 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
   [SerializeField] private float forwardForce = 15f;
-  [SerializeField] private float upwardForce = 7f;
-  [SerializeField] private float StartingZPos = 38f;
+  [SerializeField] private float upwardForce = 10f;
+  [SerializeField] private float StartingZPos = 78f;
   Vector3 KickerPosition;
   [SerializeField]private GameObject Kicker;
   [SerializeField] Audiomanager audiomanager;
   [SerializeField] Animator BallKickAnimator;
-  float[] lanes = { -2f, -1f, 0f, 1f, 2f };
+  float[] lanes = { -8f, -4f, 0f, 4f, 8f };
   Rigidbody Rb;
   bool isResetting = false;
   Vector3 startPosition;
@@ -30,7 +30,7 @@ public class BallController : MonoBehaviour
     void Shoot()
   {
     float laneX = lanes[Random.Range(0, lanes.Length)];
-    Vector3 direction = new Vector3(laneX - transform.position.x, 0, 9f).normalized;
+    Vector3 direction = new Vector3(laneX - transform.position.x, 0, 30f).normalized;
     Rb.AddForce(direction * forwardForce, ForceMode.Impulse);
     Rb.AddForce(Vector3.up * upwardForce, ForceMode.Impulse);
     audiomanager.PlayKick();
@@ -60,6 +60,7 @@ public class BallController : MonoBehaviour
     Rb.velocity = Vector3.zero;
     Rb.angularVelocity = Vector3.zero;
     Kicker.transform.position=KickerPosition;
+    Kicker.transform.localRotation=Quaternion.identity;
     transform.position = startPosition;
     StopAllCoroutines();
     StartCoroutine(BallWait());

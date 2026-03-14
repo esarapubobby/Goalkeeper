@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-  [SerializeField] float speed = 5f;
-  [SerializeField] float laneDistance = 1f;
+  [SerializeField] float speed = 12f;
+  [SerializeField] float laneDistance = 4f;
   [SerializeField] UIManager uiManager;
   [SerializeField] Audiomanager audioManager;
   int currentLane = 0;
